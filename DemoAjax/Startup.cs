@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DemoAjax.Data;
+using DemoAjax.Data.Interfaces;
 using DemoAjax.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,8 @@ namespace DemoAjax
             services.AddDbContext<DemoTableContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            //services.AddTransient<IRepository<Employee>, Repository<Employee>>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

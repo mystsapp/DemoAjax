@@ -12,10 +12,12 @@ namespace DemoAjax.Controllers
     public class EmployeesController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public EmployeesController(IEmployeeRepository employeeRepository)
+        public EmployeesController(IEmployeeRepository employeeRepository, IUnitOfWork unitOfWork)
         {
             _employeeRepository = employeeRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
@@ -26,8 +28,11 @@ namespace DemoAjax.Controllers
         [HttpGet]
         public IActionResult LoadData(string name, string status, int page, int pageSize)
         {
+            //var epployeeByName = _unitOfWork.employees.GetEmployeeByName("hongvt");
+
             int totalRow = 0;
-            var employees = _employeeRepository.GetAll();
+            //var employees = _employeeRepository.GetAll();
+            var employees = _unitOfWork.employees.GetAll();
 
             if (!string.IsNullOrEmpty(name))
             {
