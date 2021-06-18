@@ -60,6 +60,11 @@ namespace DemoAjax
 
             app.UseMvc(routes =>
             {
+            //    routes.MapRoute(
+            //        name: "us_english_products",
+            //        template: "en-US/Products/",
+            //        defaults: new { controller = "Employees", action = "Index" }
+            //);
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

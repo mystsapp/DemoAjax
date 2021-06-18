@@ -1,10 +1,43 @@
 ﻿homeConfig = {
     pageIndex: 1,
     pageSize: 5
-}
+};
+
+$.addCommas = function (x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return parts.join(".");
+};
+
 var EmployeeController = {
     init: function () {
         EmployeeController.loadData();
+
+        $('input.numbers').keyup(function (event) {
+
+            // Chỉ cho nhập số
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            //$(this).val(function (index, value) {
+            //    return value
+            //        .replace(/\D/g, "")
+            //        .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+            //        ;
+            //});
+
+            $(this).val(function (index, value) {
+                return $.addCommas(value);
+            });
+        });
+
+
+        //function addCommas(x) {
+        //    var parts = x.toString().split(".");
+        //    parts[0] = parts[0].replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        //    return parts.join(".");
+        //}
+
     },
     registerEvent: function () {
         $('#frmSaveData').validate({
@@ -15,7 +48,7 @@ var EmployeeController = {
                 },
                 salary: {
                     required: true,
-                    number: true
+                    //number: true
                 }
             },
             messages: {
@@ -25,7 +58,7 @@ var EmployeeController = {
                 },
                 salary: {
                     required: "Salary không được để trống.",
-                    number: "Bạn phải nhập số."
+                    //number: "Bạn phải nhập số."
                 }
             }
         });
@@ -137,14 +170,73 @@ var EmployeeController = {
     },
 
     saveData: function () {
+
+
+        //var formUser = $('#frmSaveData').serializeArray();
+
+        //console.log(formUser);
+
+        //var data1 = JSON.stringify($('#frmSaveData').serialize());
+        //console.log(data1);
+
+        //var formData = JSON.parse(JSON.stringify(jQuery('#frmSaveData').serializeArray())); // store json string
+        //console.log(FormData);
+
+        //var data = $("#frmSaveData").serialize();
+        //data = data.split("&");
+        //console.log(data);
+        //var obj = {};
+        //for (var key in data) {
+        //    console.log(data[key]);
+        //    obj[data[key].split("=")[0]] = data[key].split("=")[1];
+        //}
+
+        //console.log(obj);
+
+
+        var serializedArr = $("#frmSaveData").serializeArray();
+
+        var properJsonObj = jQFormSerializeArrToJson(serializedArr);
+
+        console.log(properJsonObj);
+
+        var data = properJsonObj.salary.split(" ");
+
+        console.log(data);
+
+        var obj = data.toString();
+
+        var b = obj.split(",");
+
+        var c = b.toString();
+
+        console.log(obj);
+
+        properJsonObj.salary = obj;
+
+        console.log(properJsonObj);
+
         var name = $('#txtName').val();
         var salary = $('#txtSalary').val();
+
+        //var data = salary.split(" ");
+        //var obj = data.toString();
+
+        function jQFormSerializeArrToJson(formSerializeArr) {
+            var jsonObj = {};
+            jQuery.map(formSerializeArr, function (n, i) {
+                jsonObj[n.name] = n.value;
+            });
+
+            return jsonObj;
+        }
+
         var status = $('#ckStatus').prop('checked');
         var createdDate = $('#txtCreatedDate').val();
         var id = $('#hidID').val();
         var employee = {
             Name: name,
-            Salary: salary,
+            Salary: obj,
             Status: status,
             CreatedDate: createdDate,
             Id: id
@@ -154,7 +246,7 @@ var EmployeeController = {
             url: '/Employees/SaveData',
             type: 'POST',
             data: {
-                strEmployee: JSON.stringify(employee)
+                strEmployee: JSON.stringify(properJsonObj)
             },
             dataType: 'json',
             success: function (response) {

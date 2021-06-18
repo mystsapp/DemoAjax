@@ -7,7 +7,7 @@ namespace DemoAjax.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double? Salary { get; set; }
+        public decimal? Salary { get; set; }
         public DateTime? CreatedDate { get; set; }
         public bool Status { get; set; }
     }

@@ -8,9 +8,23 @@
 
 
   <ItemGroup>
+    <PackageReference Include="KendoUICore" Version="2019.2.619" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js\numeral\languages\" />
+    <Folder Include="wwwroot\js\numeral\min\languages\" />
+    <Folder Include="wwwroot\js\numeral\tests\languages\" />
+    <Folder Include="wwwroot\js\numeral\tests\numeral\" />
+  </ItemGroup>
+
+
+  <ProjectExtensions><VisualStudio><UserProperties bower_1json__JSONSchema="http://json.schemastore.org/bowerrc" /></VisualStudio></ProjectExtensions>
 
 </Project>

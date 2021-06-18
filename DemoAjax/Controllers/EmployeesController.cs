@@ -24,6 +24,14 @@ namespace DemoAjax.Controllers
         {
             return View();
         }
+        public IActionResult ReportEmployee()
+        {
+            var employees = _unitOfWork.employees.GetAll();
+            string listEmployees = JsonConvert.SerializeObject(employees);
+            Report.Controllers.HomeController homeController = new Report.Controllers.HomeController();
+            homeController.PrintReport();
+            return View();
+        }
 
         [HttpGet]
         public IActionResult LoadData(string name, string status, int page, int pageSize)

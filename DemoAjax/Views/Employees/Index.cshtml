@@ -4,7 +4,7 @@
 }
 
 @section Scripts{
-
+    <script src="~/js/numeral/numeral.js"></script>
     <script src="~/js/Employee/bootbox.min.js"></script>
     <script src="~/js/Employee/mustache.min.js"></script>
 
@@ -18,6 +18,8 @@
         }
     </style>
 }
+
+<a class="btn btn-primary" href="/Employees/ReportEmployee">ReportEmployee</a>
 
 <br />
 <div class="row">
@@ -57,7 +59,7 @@
                     <th>Salary</th>
                     <th>Status</th>
 
-</tr>
+                </tr>
             </thead>
             <tbody id="tblData" class="table"></tbody>
         </table>
